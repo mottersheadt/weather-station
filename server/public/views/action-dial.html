@@ -1,0 +1,22 @@
+<div ng-show="actions && actions.length"
+     style="position: absolute;
+	    bottom: 12px; right: 7px;">
+    <md-fab-speed-dial class="md-scale"
+		       md-open="false"
+		       md-direction="up">
+	<md-fab-trigger>
+	    <md-button aria-label="menu" class="md-fab md-accent">
+		<i class="mdi mdi-menu"></i>
+	    </md-button>
+	</md-fab-trigger>
+	<md-fab-actions>
+	    <div ng-repeat="action in actions">
+		<md-button aria-label="{{action.label}}"
+			   class="md-fab md-raised md-mini md-primary"
+			   ng-click="action.click(action)">
+		    <i class="mdi mdi-{{action.icon}}"></i>
+		</md-button>
+	    </div>
+	</md-fab-actions>
+    </md-fab-speed-dial>
+</div>

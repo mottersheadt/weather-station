@@ -1,0 +1,19 @@
+<div>
+    <md-toolbar class="md-whiteframe-2dp md-accent">
+	<div class="md-toolbar-tools">
+	    <md-button ng-click="toggleLeft()"
+		       aria-label="main navigation"
+		       id="leftSidenavToggle"
+		       hide-gt-sm>
+		<i class="mdi mdi-mini mdi-menu"
+		   style="color: black;"></i>
+	    </md-button>
+	    <div layout="column">
+		<h2>{{title}}</h2>
+		<small class="wh-breadcrumbs" ng-show="breadcrumbs">
+		    <a ng-repeat-start="(name, href) in breadcrumbs" ng-href="{{href}}">{{name}}</a><span ng-repeat-end>&gt;</span><b>{{loaf || 'Current Page'}}</b>
+		</small>
+	    </div>
+	</div>
+    </md-toolbar>
+</div>

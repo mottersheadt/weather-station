@@ -1,0 +1,10 @@
+{
+    "__response__": {
+	"error": "No results"
+    },
+    "currentTemperature": {
+	"__execute__": [
+	    ["currentTemperature"]
+	]
+    }
+}

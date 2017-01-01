@@ -1,0 +1,79 @@
+<div layout="column" layout-fill>
+    <page-header title="{{pageTitle}}" breadcrumbs="breadcrumbs" loaf="{{loaf}}"></page-header>
+
+    <div class="page-container" flex layout="row">
+	<main-content actions="pageActions" returnUrl="returnUrl" flex>
+	    <div layout-padding>
+		<div>
+		    <div class="row">
+			<div class="col-sm-8" flex="100">
+			    <h1 class="no-margin">{{orderNumber}}</h1>
+			</div>
+			<div class="col-sm-4" flex="100" layout="column">
+			    <div layout="row" flex="50">
+					<md-button ng-click="go('/work_orders/'+orderNumber+'/timeline')"
+					   class="md-secondary md-raised"
+					   flex="100">
+				    Timeline
+				</md-button>
+			    </div>
+			    <div layout="row" flex="50">
+				<md-button ng-click="go('/work_orders/'+orderNumber+'/documents')"
+					   class="md-secondary md-raised"
+					   flex="100">
+				    Documents ({{work_order.documents.length}})
+				</md-button>
+			    </div>
+			</div>
+			<div class="col-sm-4 col-sm-push-8 margin-top-15">
+			    <br>
+			    <div layout="row" class="margin-top-5">
+				<strong class="text-right" flex="50">Customer PO:</strong>
+				<span class="margin-right-15 margin-left-15" flex="50">
+				    {{work_order.purchase_order}}
+				</span>
+			    </div>
+			    <div layout="row" class="margin-top-5">
+				<strong class="text-right" flex="50">S/N:</strong>
+				<span class="margin-right-15 margin-left-15" flex="50">
+				    {{work_order.serial_number}}
+				</span>
+			    </div>
+			    <div layout="row" class="margin-top-5">
+				<strong class="text-right" flex="50">Date of Order:</strong>
+				<span class="margin-right-15 margin-left-15" flex="50">
+				    {{date(work_order.date_ordered)}}
+				</span>
+			    </div>
+			    <div layout="row" class="margin-top-15">
+				<strong class="text-right" flex="50">Invoice #:</strong>
+				<span class="margin-right-15 margin-left-15 underline" flex="50">
+				    {{work_order.invoice_number}}
+				</span>
+			    </div>
+			    <div layout="row" class="margin-top-15">
+				<strong class="text-right" flex="50">Ordered By:</strong>
+				<span class="margin-right-15 margin-left-15" flex="50">
+				    {{work_order.ordered_by}}
+				</span>
+			    </div>
+			    <div layout="row" class="margin-top-5">
+				<strong class="text-right" flex="50">Created By:</strong>
+				<span class="margin-right-15 margin-left-15" flex="50">
+				    {{work_order.created_by}}
+				</span>
+			    </div>
+			    <br>
+			</div>
+			<div class="col-sm-8 col-sm-pull-4">
+			    <h4 class="no-margin">Description</h4>
+			    <pre class="pre-wrap">{{work_order.description}}</pre>
+			    <h4 class="no-margin">Requirements</h4>
+			    <pre class="pre-wrap">{{work_order.requirements}}</pre>
+			</div>
+		    </div>
+		</div>
+	    </div>
+	</main-content>
+    </div>
+</div>

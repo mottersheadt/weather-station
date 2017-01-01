@@ -1,0 +1,15 @@
+<div layout="column" layout-fill>
+    <page-header title="{{pageTitle}}" ></page-header>
+    <div class="page-container" flex layout="row">
+	<main-content flex>
+	    <div layout-padding>
+		<div>
+		    {{readableTemp(temperature.celcius)}}
+		</div>
+		<div>
+		    {{readableTemp(temperature.fahrenheit)}}
+		</div>
+	    </div>
+	</main-content>
+    </div>
+</div>

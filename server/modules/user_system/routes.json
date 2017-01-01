@@ -1,0 +1,127 @@
+{
+	"__table__": "users",
+	"__where__": "users.active = 1 AND clients.id IS NULL",
+	"__joins__": [
+		["client_users",	["users.id", "client_users.user_id"] ],
+		["clients",			["client_users.client_id", "clients.id"] ],
+		["files",			["users.picture", "profile_pictures.id"], "profile_pictures"]
+	],
+	"__structure__": {
+		"data": {
+			"< users_id": "file:json/user.json"
+		},
+		"count": "= Object.keys(this.$parent).length"
+	},
+	"deactivated": {
+		"__base__": "..",
+		"__where__": "users.active = 0"
+	},
+	"create": {
+		"__structure__": {
+			"first_name": "< name.first",
+			"last_name": "< name.last",
+			"title": true,
+			"email": true,
+			"password": "< password",
+			"metadata": "= JSON.stringify(this.metadata)"
+		},
+		"__validate__": [
+			["Check.Base.required",	"< data.name", ["first", "last"]],
+			["Check.Base.notEmpty",	"< data.name", ["first", "last"]],
+			["Check.Base.allowed",	"< data.name", ["first", "last"]],
+
+			["Check.Base.required",	"< data", ["email", "password"]],
+			["Check.Base.notEmpty",	"< data", ["email", "password"]],
+			["Check.Base.allowed",	"< data", ["name", "email", "password", "metadata", "title"]],
+
+			["Check.Table.destruct",	"< data", "columns"]
+		],
+		"__execute__": [
+			["User.create"]
+		]
+	},
+	"me": {
+		"__response__": {
+			"data": "< auth"
+		}
+	},
+	"login": {
+		"__validate__": [
+			["Check.Base.required", "< data", [
+				"email", "password"]
+			],
+			["Check.Base.notEmpty", "< data", [
+				"email", "password"]
+			]
+		],
+		"__execute__": [
+			["User.login"]
+		]
+	},
+	"logout": {
+		"__execute__": [
+			["User.logout"]
+		]
+	},
+	":id": {
+		"__validate__": [
+			["Check.Table.exists", "users", "id", "< path.id"]
+		],
+		"__base__": "..",
+		"__where__": "users.active = 1 AND users.id = {path.id}",
+		"__joins__": [
+			["files",					 ["users.picture", "profile_pictures.id"], "profile_pictures"],
+			["files",                    ["users.id", "files.user_id"] ],
+			["documents",			     ["files.id", "documents.file_id"]],
+			["work_order_documents",     ["work_order_documents.document_id", "documents.id"]],
+			["work_orders",              ["work_orders.id", "work_order_documents.work_order_id"]],
+			["client_users",             ["users.id", "client_users.user_id"] ],
+			["clients",                  ["client_users.client_id", "clients.id"] ]
+		],
+		"__structure__": {
+			"data": "file:json/user_detail.json"
+		},
+		"update": {
+			"__structure__": {
+				"first_name": "< name.first",
+				"last_name": "< name.last",
+				"email": true,
+				"title": true,
+				"password": "< password",
+				"new_password": "< new_password",
+				"metadata": "= JSON.stringify(this.metadata)"
+			},
+			"__validate__": [
+				["Check.Table.destruct", "< data", "columns"],
+				["Check.Base.required", "= this", ["columns"]],
+				["Check.Base.notEmpty", "< columns", [
+					"first_name", "last_name",
+					"email", "password", "new_password" ]
+				],
+				["Check.Base.allowed", "< columns", [
+					"first_name", "last_name", "email",
+					"password", "new_password", "title",
+					"metadata" ]
+				]
+			],
+			"__execute__": [
+				["User.update", "< path.id", "< files[0]"]
+			]
+		},
+		"deactivate": {
+			"__execute__": [
+				["User.deactivate", "< path.id"]
+			]
+		},
+		"reactivate": {
+			"__execute__": [
+				["User.reactivate", "< path.id"]
+			]
+		},
+		"delete": {
+			"__execute__": [
+				["User.delete", "< path.id"]
+			]
+		}
+	}
+}
