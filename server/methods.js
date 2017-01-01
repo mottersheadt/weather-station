@@ -78,18 +78,20 @@ function P(fn, ignore_errors) {
 var Methods = {
     "currentTemperature": function(args, resp) {
         var self = this;
-	return resp({
-	    "data": {
-		"celcius": 20,
-		"fahrenheit": 68
-	    }
-	});
+	// return resp({
+	//     "data": {
+	// 	"celcius": 20,
+	// 	"fahrenheit": 68
+	//     }
+	// });
 
 	read_temp().then(function(temps) {
-	    "data": {
-		"celcius": temps[0],
-		"fahrenheit": temps[1]
-	    }
+	    resp({
+		"data": {
+		    "celcius": temps[0],
+		    "fahrenheit": temps[1]
+		}
+	    })
 	}).catch(error_response(resp));
     },
 };
