@@ -3,11 +3,18 @@
 	<h1>Temperature</h1>
 	<div class="row">
 	    <div class="col-xs-6" >
-		<h3>Celcius: <span class="lead">{{readableTemp(temperature.celcius)}}</span></h3>
-		
+		<h3>Celcius:
+		    <span class="lead text-flashable" ng-class="updated ?'text-flash-yellow' :''">
+			{{readableTemp(temperature.celcius)}}
+		    </span>
+		</h3>
 	    </div>
 	    <div class="col-xs-6">
-		<h3>Fahrenheit: <span class="lead">{{readableTemp(temperature.fahrenheit)}}</span></h3>
+		<h3>Fahrenheit:
+		    <span class="lead text-flashable" ng-class="updated ?'text-flash-yellow' :''">
+			{{readableTemp(temperature.fahrenheit)}}
+		    </span>
+		</h3>
 	    </div>
 	</div>
     </div>
